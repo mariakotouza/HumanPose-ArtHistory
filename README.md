@@ -8,8 +8,8 @@ The project contains three scripts:
 - **clustering.py**: clusters the datasets using k-means and creates 2D and 3D plots using PCA.
 - **tsne.py**: clusters the datasets using k-means and creates 2D and 3D plots using tsne. Two cases are tested: The first one takes into account inly the keypoints of the human posture, whereas the second one uses both the keypoints ans the torso rotation angles.
 - **torso_clustering.py**: clusters the datasets using only the torso rotation angles. 
-- **Visualization.py**: helper functions for visualization
-- **image_resize.py**: resizes an imput image
+- **Visualization.py**: helper functions for visualization.
+- **image_resize.py**: resizes an imput image.
 
 ## Installation
 To run the project you have to execute the following steps:
