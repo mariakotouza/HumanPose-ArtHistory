@@ -4,7 +4,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d import proj3d
 
-def visualize2DData (X, fig, ax, image_path, centroids, colors_scatter, datasets):
+def visualize2DData (X, values_to_show, fig, ax, image_path, centroids, colors_scatter, datasets):
     """Visualize data in 2d plot with popover next to mouse position.
 
     Args:
@@ -97,8 +97,8 @@ def visualize2DData (X, fig, ax, image_path, centroids, colors_scatter, datasets
         x2 = X[index, 0]
         y2 = X[index, 1]
 
-        annotatePlot.label = plt.annotate( "Value %d" % index,
-            xy = (x2, y2), xytext = (-20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',
+        annotatePlot.label = plt.annotate( "Value %d" % values_to_show[index],
+            xy = (x2, y2), xytext = (-20, -40), textcoords = 'offset points', ha = 'right', va = 'bottom',
             bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
             arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
 

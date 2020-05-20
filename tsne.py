@@ -53,6 +53,14 @@ images_temp = ['/img/' + data['image'][i] for i in range(len(data['image']))]
 dataset_temp = ['../../../Data/' + data['dataset'][i] for i in range(len(data['dataset']))]
 images = [m+n for m,n in zip(dataset_temp,images_temp)]
 
+img_ids = data['human']
+images_temp_skel = [s.replace(".jpg", "") for s in images_temp]
+images_temp_skel = [s.replace("img", "img_skel") for s in images_temp_skel]
+images_temp_skel = [images_temp_skel[i] + "_" + str(img_ids[i]) + '.jpg' for i in range(len(data['dataset']))]
+images_skel = [m+n for m,n in zip(dataset_temp,images_temp_skel)]
+print(images_skel)
+images = images_skel
+
 data_all = data
 
 data_all.to_csv(relative_path + 'Data_csv/' + 'data_all' + '_angles_rotated_with_names_sin_cos.txt', sep='\t')
@@ -146,7 +154,7 @@ plt.imshow(Z, interpolation='nearest',
 image_path = images
 
 X = reduced_data
-visualize2DData (X, fig, ax, image_path, centroids, colors_scatter, datasets)
+visualize2DData (X, range(len(image_path)), fig, ax, image_path, centroids, colors_scatter, datasets)
 plt.title('K-means clustering (tsne-reduced data)\n'
           'Centroids are marked with white cross')
 plt.show()
@@ -212,7 +220,7 @@ plt.imshow(Z, interpolation='nearest',
 image_path = images
 
 X = reduced_data
-visualize2DData (X, fig, ax, image_path, centroids, colors_scatter, datasets)
+visualize2DData (X, range(len(image_path)), fig, ax, image_path, centroids, colors_scatter, datasets)
 
 plt.title('K-means clustering (tsne-reduced data) with rotation attr\n'
           'Centroids are marked with white cross')

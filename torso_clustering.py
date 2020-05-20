@@ -51,12 +51,19 @@ images_temp = ['/img/' + data['image'][i] for i in range(len(data['image']))]
 dataset_temp = ['../../../Data/' + data['dataset'][i] for i in range(len(data['dataset']))]
 images = [m+n for m,n in zip(dataset_temp,images_temp)]
 
+img_ids = data['human']
+images_temp_skel = [s.replace(".jpg", "") for s in images_temp]
+images_temp_skel = [s.replace("img", "img_skel") for s in images_temp_skel]
+images_temp_skel = [images_temp_skel[i] + "_" + str(img_ids[i]) + '.jpg' for i in range(len(data['dataset']))]
+images_skel = [m+n for m,n in zip(dataset_temp,images_temp_skel)]
+print(images_skel)
+images = images_skel
+
 data_all = data
+data_cos = np.cos(np.radians(data['rotation']))
+data_sin = np.sin(np.radians(data['rotation']))
 
-data_cos = np.cos(data['rotation'])
-data_sin = np.sin(data['rotation'])
-
-frame = {'torso_sin': data_sin, 'torso_cos': data_cos}
+frame = {'torso_cos': data_cos, 'torso_sin': data_sin}
 torso_sin_cos = pd.DataFrame(frame)
 torso_sin_cos = torso_sin_cos.values
 
@@ -123,8 +130,8 @@ plt.ylim(y_min, y_max)
 plt.xticks(())
 plt.yticks(())
 
-plt.xlabel('sin(x)')
-plt.ylabel('cos(x)')
+plt.xlabel('cos(x)')
+plt.ylabel('sin(x)')
 
 plt.savefig(output_dir + 'torso_clustering.png')
 plt.close(fig)
@@ -144,12 +151,12 @@ plt.imshow(Z, interpolation='nearest',
 image_path = images
 
 X = torso_sin_cos
-visualize2DData (X, fig, ax, image_path, centroids, colors_scatter, datasets)
+visualize2DData (X, data['rotation'], fig, ax, image_path, centroids, colors_scatter, datasets)
 
 plt.title('K-means clustering torso angles sin and cos\n'
           'Centroids are marked with white cross')
-plt.xlabel('sin(x)')
-plt.ylabel('cos(x)')
+plt.xlabel('cos(x)')
+plt.ylabel('sin(x)')
 plt.show()
 
 ######################################################
